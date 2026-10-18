@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeedShield | National Land Due-Diligence & Verification Portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; }
+        @media print { 
+            .no-print { display: none !important; }
+            body { background: white !important; }
+        }
+        .mouza-plot { transition: all 0.3s ease; cursor: pointer; }
+        .mouza-plot:hover { filter: brightness(1.2); stroke-width: 2.5; }
+    </style>
+</head>
+<body class="bg-slate-100/80 text-slate-800 min-h-screen flex flex-col antialiased">
+
+    <!-- Top Gov Announcement Strip -->
+    <div class="bg-emerald-950 text-emerald-200 text-xs py-2 px-4 border-b border-emerald-900/60 no-print">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <span class="flex items-center space-x-2">
+                <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                <span class="font-bold text-white tracking-wide">DeedShield Enterprise</span>
+                <span class="text-emerald-500">|</span>
+                <span data-i18n="top_bar">Smart Land Governance Prototype | LandTech 2026 Innovation Hackathon</span>
+            </span>
+            <!-- Language Switcher -->
+            <div class="flex items-center space-x-1 bg-emerald-900/80 px-2 py-0.5 rounded-lg border border-emerald-700/50">
+                <button onclick="setLanguage('bn')" id="lang-bn" class="text-xs px-2.5 py-0.5 rounded font-bold bg-emerald-600 text-white transition">বাংলা</button>
+                <button onclick="setLanguage('en')" id="lang-en" class="text-xs px-2.5 py-0.5 rounded font-semibold text-emerald-300 hover:text-white transition">English</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= SCREEN 1: LAND GRAPHICS LOGIN GATEWAY ================= -->
+    <div id="screen-auth" class="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-slate-900 relative overflow-hidden">
+        
+        <div class="absolute inset-0 opacity-15 pointer-events-none">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                <defs>
+                    <pattern id="land-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#10b981" stroke-width="0.7"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#land-grid)" />
+            </svg>
+        </div>
+
+        <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 rounded-3xl overflow-hidden shadow-2xl border border-emerald-800/40 bg-slate-950 relative z-10">
+            
+            <div class="lg:col-span-7 bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950 p-8 sm:p-12 text-white flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-emerald-800/50">
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-3 mb-8">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255,255,255,0.2)"/>
+                                <path d="M9 12l2 2 4-4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-extrabold tracking-tight">Deed<span class="text-emerald-400">Shield</span></span>
+                            <span class="text-[11px] bg-emerald-800/80 text-emerald-200 border border-emerald-700/60 px-2 py-0.5 rounded-md font-bold ml-2">স্মার্ট ভূমি যাচাই</span>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl sm:text-3xl font-extrabold leading-snug mb-4" data-i18n="auth_left_title">
+                        ডিজিটাল ভূমি সত্যতা ও নাগরিক প্রি-পারচেজ ভেরিফিকেশন
+                    </h2>
+                    <p class="text-emerald-200/80 text-sm leading-relaxed mb-8" data-i18n="auth_left_desc">
+                        বায়নানামার পূর্বে জমির আসল আইনি অবস্থা জানুন। খতিয়ান ধারাবাহিকতা, খাস জমি, আদালতের স্থগিতাদেশ এবং ব্যাংক বন্ধক স্বয়ংক্রিয়ভাবে অডিট করুন।
+                    </p>
+
+                    <div class="space-y-3.5">
+                        <div class="flex items-center space-x-3 text-xs bg-emerald-900/40 p-3 rounded-2xl border border-emerald-700/30">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-map"></i>
+                            </div>
+                            <span class="text-slate-200" data-i18n="feat_1">খতিয়ান চেইন অ্যানালাইসিস (CS → SA → RS → BS)</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-xs bg-emerald-900/40 p-3 rounded-2xl border border-emerald-700/30">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-landmark"></i>
+                            </div>
+                            <span class="text-slate-200" data-i18n="feat_2">সরকারি খাস ও অধিগ্রহণ গেজেট অটো-স্ক্রিনার</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-xs bg-emerald-900/40 p-3 rounded-2xl border border-emerald-700/30">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <span class="text-slate-200" data-i18n="feat_3">আদালতের ১৪৪ ধারা ও নিষেধাজ্ঞা মনিটরিং</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-8 mt-8 border-t border-emerald-800/40 flex items-center justify-between text-xs text-emerald-400/80 font-mono">
+                    <span>Smart Bangladesh Land Tech</span>
+                    <span>Rule 8 Compliant</span>
+                </div>
+            </div>
+
+            <!-- Login / Reg Form -->
+            <div class="lg:col-span-5 bg-white p-8 sm:p-10 flex flex-col justify-center">
+                <div class="flex bg-slate-100 p-1 rounded-2xl mb-6">
+                    <button id="tab-login" onclick="setAuthTab('login')" class="flex-1 py-2.5 text-xs font-bold rounded-xl transition bg-white text-slate-900 shadow-sm" data-i18n="tab_login">লগইন</button>
+                    <button id="tab-register" onclick="setAuthTab('register')" class="flex-1 py-2.5 text-xs font-bold rounded-xl transition text-slate-500 hover:text-slate-800" data-i18n="tab_register">রেজিস্ট্রেশন</button>
+                </div>
+
+                <div class="mb-6 p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200">
+                    <div class="text-xs font-bold text-emerald-900 mb-2 flex items-center">
+                        <i class="fa-solid fa-bolt text-emerald-600 mr-1.5"></i>
+                        <span data-i18n="quick_login_title">বিচারক প্রদর্শনের জন্য ১-ক্লিক ডেমো প্রবেশ:</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="demoLogin('citizen')" class="text-xs font-bold bg-white hover:bg-emerald-100 text-emerald-800 py-2.5 px-3 rounded-xl border border-emerald-300 transition shadow-sm flex items-center justify-center space-x-1.5">
+                            <i class="fa-solid fa-user"></i>
+                            <span data-i18n="demo_citizen">Citizen Demo</span>
+                        </button>
+                        <button onclick="demoLogin('officer')" class="text-xs font-bold bg-white hover:bg-purple-100 text-purple-800 py-2.5 px-3 rounded-xl border border-purple-300 transition shadow-sm flex items-center justify-center space-x-1.5">
+                            <i class="fa-solid fa-building-user"></i>
+                            <span data-i18n="demo_officer">Officer Demo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div id="auth-field-name" class="hidden">
+                        <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="form_name">আপনার পূর্ণ নাম</label>
+                        <input id="auth-input-name" type="text" placeholder="Tanvir Ahmed" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" />
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="form_email">ইমেইল ঠিকানা</label>
+                        <input id="auth-input-email" type="email" placeholder="citizen@deedshield.gov.bd" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" />
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="form_password">পাসওয়ার্ড</label>
+                        <input id="auth-input-password" type="password" value="123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none" />
+                    </div>
+
+                    <div id="auth-field-role" class="hidden">
+                        <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="form_role">ব্যবহারকারীর ধরন</label>
+                        <select id="auth-input-role" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium">
+                            <option value="Citizen / Buyer" data-i18n="role_citizen">নাগরিক / ক্রেতা (Citizen)</option>
+                            <option value="Land Officer" data-i18n="role_officer">ভূমি কর্মকর্তা (AC Land)</option>
+                        </select>
+                    </div>
+
+                    <button onclick="handleAuthSubmit()" id="auth-submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-emerald-600/30 transition text-sm flex items-center justify-center space-x-2">
+                        <span id="btn-text">ড্যাশবোর্ডে প্রবেশ করুন</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= SCREEN 2: ENTERPRISE LAND DASHBOARD ================= -->
+    <div id="screen-dashboard" class="hidden flex-grow flex flex-col">
+        
+        <!-- Top Gov Navigation -->
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm no-print">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+                
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-800 to-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-700/20">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255,255,255,0.15)"/>
+                            <path d="M9 12l2 2 4-4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-2xl font-extrabold tracking-tight text-slate-900">Deed<span class="text-emerald-600">Shield</span></span>
+                            <span class="text-[11px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-md font-bold">Gov-Tech Enterprise</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium" data-i18n="brand_subtitle">নাগরিক প্রি-পারচেজ ভূমি যাচাইকরণ প্ল্যাটফর্ম</p>
+                    </div>
+                </div>
+
+                <!-- User Profile & Logout -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-xs text-emerald-900 font-bold">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>e-Mutation Gateway: Live</span>
+                    </div>
+                    <div class="flex items-center space-x-2.5 bg-slate-100 border border-slate-200/80 px-3.5 py-2 rounded-xl">
+                        <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold" id="user-avatar">
+                            T
+                        </div>
+                        <div class="text-left leading-tight">
+                            <div class="text-xs font-bold text-slate-900" id="user-display-name">Tanvir Ahmed</div>
+                            <div class="text-[10px] text-emerald-700 font-semibold" id="user-display-role">Verified Citizen</div>
+                        </div>
+                    </div>
+                    <button onclick="logout()" class="text-xs font-bold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-xl transition flex items-center space-x-1.5" title="Logout">
+                        <i class="fa-solid fa-power-off"></i>
+                        <span data-i18n="btn_logout">লগআউট</span>
+                    </button>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- Status Taskbar Ribbon -->
+        <div class="bg-slate-900 text-slate-300 text-xs py-2.5 px-4 border-b border-slate-800 no-print">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center space-x-6 font-mono text-[11px]">
+                    <span class="flex items-center"><i class="fa-solid fa-server text-emerald-400 mr-1.5"></i> <strong class="text-white mr-1">Cloud Node:</strong> Dhaka DC-01</span>
+                    <span class="hidden sm:flex items-center"><i class="fa-solid fa-database text-blue-400 mr-1.5"></i> <strong class="text-white mr-1">Registry Sync:</strong> BS / City Survey 2026</span>
+                    <span class="hidden md:flex items-center"><i class="fa-solid fa-scale-balanced text-amber-400 mr-1.5"></i> <strong class="text-white mr-1">Court Caveat:</strong> Real-time Live</span>
+                </div>
+                <div class="flex items-center space-x-3 text-[11px]">
+                    <span class="bg-slate-800 text-emerald-400 px-2 py-0.5 rounded border border-slate-700 font-mono">Status: 100% Operational</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Body -->
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+            
+            <!-- 4 KPI Cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 no-print">
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider" data-i18n="kpi_records">ডিজিটাইজড খতিয়ান</div>
+                        <div class="text-lg font-extrabold text-slate-900">৪.২ কোটি+</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-map-location"></i>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider" data-i18n="kpi_mouza">মৌজা ম্যাপ কভারেজ</div>
+                        <div class="text-lg font-extrabold text-slate-900">৬৪ জেলা (১০০%)</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider" data-i18n="kpi_banks">সংযুক্ত ব্যাংক লেজার</div>
+                        <div class="text-lg font-extrabold text-slate-900">৬১টি বাণিজ্যিক ব্যাংক</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex items-center space-x-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider" data-i18n="kpi_accuracy">জালিয়াতি শনাক্তকরণ</div>
+                        <div class="text-lg font-extrabold text-slate-900">৯৯.৪% একুরেসি</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workspace: Search Form + Live Cadastral GIS Map Simulator -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10 no-print">
+                
+                <!-- Left Column: Search Form -->
+                <div class="lg:col-span-7 bg-white rounded-3xl shadow-sm border border-slate-200/90 p-6 sm:p-7 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
+                            <h3 class="text-base font-bold text-slate-900 flex items-center">
+                                <i class="fa-solid fa-map-pin text-emerald-600 mr-2"></i>
+                                <span data-i18n="search_box_title">জমির অবস্থান ও দাগ নম্বর দিন</span>
+                            </h3>
+                            <span class="text-xs text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full font-bold border border-emerald-200">Pre-Purchase Audit</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1.5" data-i18n="lbl_division">Division (বিভাগ)</label>
+                                <select id="division" onchange="onDivisionChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 font-medium">
+                                    <option value="Dhaka">Dhaka (ঢাকা)</option>
+                                    <option value="Chattogram">Chattogram (চট্টগ্রাম)</option>
+                                    <option value="Sylhet">Sylhet (সিলেট)</option>
+                                    <option value="Rajshahi">Rajshahi (রাজশাহী)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1.5" data-i18n="lbl_district">District (জেলা)</label>
+                                <select id="district" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 font-medium"></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1.5" data-i18n="lbl_upazila">Upazila (উপজেলা)</label>
+                                <select id="upazila" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 font-medium"></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1.5" data-i18n="lbl_mouza">Mouza (মৌজা)</label>
+                                <input id="mouza" type="text" value="Savar (JL 42)" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 font-medium" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-emerald-800 mb-1.5" data-i18n="lbl_dag">Dag / Plot No (দাগ নম্বর)*</label>
+                            <input id="dag_no" type="text" placeholder="e.g. 101" value="101" class="w-full bg-slate-50 border-2 border-emerald-500 font-bold text-slate-900 rounded-xl px-4 py-2.5 text-base focus:ring-2 focus:ring-emerald-500" />
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs text-slate-500 italic" data-i18n="hint_map">ডানপাশের ম্যাপ থেকেও সরাসরি দাগ সিলেক্ট করতে পারেন</span>
+                        <button onclick="runVerification()" id="btn-verify" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-3 rounded-xl shadow-lg shadow-emerald-600/30 transition flex items-center space-x-2">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <span data-i18n="btn_run_audit">এই জমির সত্যতা যাচাই করুন</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column: Location-Reactive Cadastral GIS Mouza Map -->
+                <div class="lg:col-span-5 bg-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-map-location-dot text-emerald-400"></i>
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-300 font-mono" id="mouza-map-heading">মৌজা নকশা: সাভার (JL ৪২)</span>
+                            </div>
+                            <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-700/60 px-2 py-0.5 rounded font-mono" id="mouza-sheet-badge">Sheet #04</span>
+                        </div>
+                        <p class="text-slate-400 text-xs mb-3" data-i18n="mouza_map_sub">
+                            নকশায় দাগের ওপর ক্লিক করে সরাসরি অডিট চালান:
+                        </p>
+
+                        <!-- Dynamic SVG Container for Cadastral Maps -->
+                        <div class="relative w-full h-56 bg-slate-950/80 rounded-2xl border border-slate-800 p-2 flex items-center justify-center overflow-hidden" id="svg-map-wrapper">
+                            <!-- Populated dynamically based on selected Location -->
+                        </div>
+                    </div>
+
+                    <div class="pt-3 mt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block mr-1"></span> Clean</span>
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block mr-1"></span> Govt Khas / Stay</span>
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block mr-1"></span> Mortgaged</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Verification Results Area -->
+            <div id="results-area" class="hidden">
+                
+                <!-- Trust Score Card -->
+                <div id="score-card" class="rounded-3xl p-6 sm:p-8 mb-8 border transition-all duration-300">
+                    <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                        <div class="flex items-center space-x-6">
+                            
+                            <div class="relative w-28 h-28 flex-shrink-0 flex items-center justify-center">
+                                <svg class="w-28 h-28 transform -rotate-90">
+                                    <circle cx="56" cy="56" r="46" stroke="#e2e8f0" stroke-width="8" fill="transparent" />
+                                    <circle id="score-circle" cx="56" cy="56" r="46" stroke="#10b981" stroke-width="8" stroke-dasharray="289" stroke-dashoffset="10" stroke-linecap="round" fill="transparent" class="transition-all duration-1000" />
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span id="trust-score-num" class="text-3xl font-extrabold text-slate-900">98</span>
+                                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider" data-i18n="score_label">Score</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex flex-wrap items-center gap-2 mb-2">
+                                    <span id="risk-badge" class="px-3 py-1 rounded-full text-xs font-extrabold uppercase">LOW RISK</span>
+                                    <span class="text-xs text-slate-600 font-mono bg-white/90 px-2.5 py-1 rounded-lg border border-slate-200">
+                                        <span id="res-location">Dhaka > Savar</span> | DAG #<span id="res-dag" class="font-bold">101</span> | KHATIAN #<span id="res-khatian" class="font-bold">512</span>
+                                    </span>
+                                </div>
+                                <h2 id="result-title" class="text-2xl font-bold text-slate-900">Valid & Clear Title Verified</h2>
+                                <p id="result-summary" class="text-sm text-slate-700 mt-1 max-w-xl font-medium"></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-3 no-print">
+                            <button onclick="window.print()" class="bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 text-sm font-bold px-5 py-2.5 rounded-xl shadow-sm transition flex items-center space-x-2">
+                                <i class="fa-solid fa-file-pdf text-rose-600 text-base"></i>
+                                <span data-i18n="btn_print_cert">অডিট সার্টিফিকেট প্রিন্ট / সেভ</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Clean Score Breakdown -->
+                    <div class="mt-6 pt-5 border-t border-slate-200/80">
+                        <div class="text-xs font-bold text-slate-700 mb-2 flex items-center justify-between">
+                            <span class="flex items-center">
+                                <i class="fa-solid fa-calculator text-emerald-600 mr-2"></i>
+                                <span data-i18n="score_breakdown_title">স্কোরিং বিশ্লেষণ (১০০ পয়েন্ট অডিট মডেল)</span>
+                            </span>
+                            <span id="total-score-badge" class="font-mono text-emerald-700 font-extrabold">98 / 100</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                            <div class="bg-white/80 p-3 rounded-2xl border border-slate-200">
+                                <div class="text-slate-500 font-medium" data-i18n="p1_short">নামজারি চেইন</div>
+                                <div class="font-extrabold text-slate-900 mt-0.5" id="pts-p1">২৫ / ২৫</div>
+                            </div>
+                            <div class="bg-white/80 p-3 rounded-2xl border border-slate-200">
+                                <div class="text-slate-500 font-medium" data-i18n="p2_short">খাস ও অধিগ্রহণ মুক্ত</div>
+                                <div class="font-extrabold text-slate-900 mt-0.5" id="pts-p2">২৫ / ২৫</div>
+                            </div>
+                            <div class="bg-white/80 p-3 rounded-2xl border border-slate-200">
+                                <div class="text-slate-500 font-medium" data-i18n="p3_short">আদালত মামলা মুক্ত</div>
+                                <div class="font-extrabold text-slate-900 mt-0.5" id="pts-p3">২৪ / ২৫</div>
+                            </div>
+                            <div class="bg-white/80 p-3 rounded-2xl border border-slate-200">
+                                <div class="text-slate-500 font-medium" data-i18n="p4_short">ব্যাংক বন্ধক মুক্ত</div>
+                                <div class="font-extrabold text-slate-900 mt-0.5" id="pts-p4">২৪ / ২৫</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Pillars Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm">
+                        <div class="flex items-start justify-between mb-2">
+                            <div class="flex items-center space-x-3.5">
+                                <div class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-book-bookmark"></i></div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900" data-i18n="pillar_1_title">1. Title & Mutation Chain</h4>
+                                    <p class="text-xs text-slate-500" data-i18n="pillar_1_sub">নামজারি ও সর্বশেষ খতিয়ান স্ট্যাটাস</p>
+                                </div>
+                            </div>
+                            <span id="p1-status" class="text-xs font-bold px-2.5 py-1 rounded-xl"></span>
+                        </div>
+                        <p id="p1-desc" class="text-xs text-slate-600 mt-3 font-medium leading-relaxed"></p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <span data-i18n="lbl_owner">বর্তমান ঘোষিত মালিক:</span>
+                            <span id="res-owner" class="font-bold text-slate-800"></span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm">
+                        <div class="flex items-start justify-between mb-2">
+                            <div class="flex items-center space-x-3.5">
+                                <div class="w-11 h-11 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-landmark"></i></div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900" data-i18n="pillar_2_title">2. Govt Khas & Acquisition</h4>
+                                    <p class="text-xs text-slate-500" data-i18n="pillar_2_sub">সরকারি খাস ও অধিগ্রহণ স্ক্রিনার</p>
+                                </div>
+                            </div>
+                            <span id="p2-status" class="text-xs font-bold px-2.5 py-1 rounded-xl"></span>
+                        </div>
+                        <p id="p2-desc" class="text-xs text-slate-600 mt-3 font-medium leading-relaxed"></p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <span data-i18n="lbl_khas">জমির সরকারি শ্রেণি:</span>
+                            <span id="res-khas" class="font-bold text-slate-800"></span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm">
+                        <div class="flex items-start justify-between mb-2">
+                            <div class="flex items-center space-x-3.5">
+                                <div class="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-scale-balanced"></i></div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900" data-i18n="pillar_3_title">3. Civil Litigation & Stay Order</h4>
+                                    <p class="text-xs text-slate-500" data-i18n="pillar_3_sub">আদালতের নিষেধাজ্ঞা ও মামলা রেকর্ড</p>
+                                </div>
+                            </div>
+                            <span id="p3-status" class="text-xs font-bold px-2.5 py-1 rounded-xl"></span>
+                        </div>
+                        <p id="p3-desc" class="text-xs text-slate-600 mt-3 font-medium leading-relaxed"></p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <span data-i18n="lbl_court">জুডিশিয়াল সার্চ:</span>
+                            <span id="res-court" class="font-bold text-slate-800"></span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-sm">
+                        <div class="flex items-start justify-between mb-2">
+                            <div class="flex items-center space-x-3.5">
+                                <div class="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-money-check-dollar"></i></div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900" data-i18n="pillar_4_title">4. Bank Mortgage & CIB Lien</h4>
+                                    <p class="text-xs text-slate-500" data-i18n="pillar_4_sub">ব্যাংক দায়বদ্ধতা ও বন্ধকী অবস্থা</p>
+                                </div>
+                            </div>
+                            <span id="p4-status" class="text-xs font-bold px-2.5 py-1 rounded-xl"></span>
+                        </div>
+                        <p id="p4-desc" class="text-xs text-slate-600 mt-3 font-medium leading-relaxed"></p>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                            <span data-i18n="lbl_bank">লিয়েন বা বন্ধক:</span>
+                            <span id="res-bank" class="font-bold text-slate-800"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Timeline & QR Token -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+                    <div class="lg:col-span-2 bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-sm">
+                        <h4 class="text-sm font-bold text-slate-900 mb-5 flex items-center">
+                            <i class="fa-solid fa-timeline text-emerald-600 mr-2.5 text-base"></i>
+                            <span data-i18n="timeline_title">মালিকানার ধারাবাহিক ইতিহাস (CS → SA → RS → BS)</span>
+                        </h4>
+                        <div id="timeline-container" class="relative pl-6 border-l-2 border-emerald-200 space-y-6"></div>
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-6 sm:p-7 rounded-3xl shadow-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-700/80 pb-3 mb-4">
+                                <span class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider" data-i18n="qr_token_title">DeedShield Verified Token</span>
+                                <i class="fa-solid fa-qrcode text-emerald-400"></i>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-4 leading-relaxed" data-i18n="qr_desc">
+                                মোবাইল ক্যামেরা দিয়ে স্ক্যান করে তাৎক্ষণিক ডিজিটাল সত্যতা নিশ্চিত করুন:
+                            </p>
+                            <div class="flex justify-center bg-white p-3 rounded-2xl w-40 h-40 mx-auto mb-4 shadow-inner">
+                                <img id="qr-img" src="" alt="DeedShield QR Token" class="w-full h-full object-contain" />
+                            </div>
+                        </div>
+                        <div class="pt-3 border-t border-slate-700/80 text-[11px] text-slate-400 font-mono space-y-1">
+                            <div>STAMP: <span id="cert-hash" class="text-emerald-300 font-bold">SHA-256</span></div>
+                            <div>DATE: <span id="cert-date" class="text-slate-300">Just Now</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 no-print">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div>
+                    <strong>DeedShield 2026</strong> — Built for Smart E-Governance, Daffodil International University.
+                </div>
+                <div class="text-[11px] text-slate-400 font-mono">
+                    100% Synthetic Dummy Dataset (Rule 8 Compliant)
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ================= SCRIPT & BILINGUAL LOGIC ================= -->
+    <script>
+        var currentLang = 'bn';
+        var currentAuthTab = 'login';
+        var currentUser = null;
+
+        var I18N = {
+            bn: {
+                top_bar: "স্মার্ট ল্যান্ড গভর্ন্যান্স প্রোটোটাইপ | ল্যান্ডটেক ২০২৬ ইনোভেশন হ্যাকাথন",
+                brand_subtitle: "নাগরিক প্রি-পারচেজ ভূমি যাচাইকরণ প্ল্যাটফর্ম",
+                btn_logout: "লগআউট",
+                search_box_title: "জমির অবস্থান ও দাগ নম্বর দিন",
+                lbl_division: "Division (বিভাগ)",
+                lbl_district: "District (জেলা)",
+                lbl_upazila: "Upazila (উপজেলা)",
+                lbl_mouza: "Mouza (মৌজা)",
+                lbl_dag: "Dag / Plot No (দাগ নম্বর)*",
+                btn_run_audit: "এই জমির সত্যতা যাচাই করুন",
+                score_label: "ট্রাস্ট স্কোর",
+                btn_print_cert: "অডিট সার্টিফিকেট প্রিন্ট / সেভ",
+                score_breakdown_title: "স্কোরিং বিশ্লেষণ (১০০ পয়েন্ট অডিট মডেল)",
+                p1_short: "নামজারি চেইন",
+                p2_short: "খাস ও অধিগ্রহণ মুক্ত",
+                p3_short: "আদালত মামলা মুক্ত",
+                p4_short: "ব্যাংক বন্ধক মুক্ত",
+                pillar_1_title: "1. Title & Mutation Chain",
+                pillar_1_sub: "নামজারি ও সর্বশেষ খতিয়ান স্ট্যাটাস",
+                pillar_2_title: "2. Govt Khas & Acquisition",
+                pillar_2_sub: "সরকারি খাস ও অধিগ্রহণ স্ক্রিনার",
+                pillar_3_title: "3. Civil Litigation & Stay Order",
+                pillar_3_sub: "আদালতের নিষেধাজ্ঞা ও মামলা রেকর্ড",
+                pillar_4_title: "4. Bank Mortgage & CIB Lien",
+                pillar_4_sub: "ব্যাংক দায়বদ্ধতা ও বন্ধকী অবস্থা",
+                lbl_owner: "বর্তমান ঘোষিত মালিক:",
+                lbl_khas: "জমির সরকারি শ্রেণি:",
+                lbl_court: "জুডিশিয়াল সার্চ:",
+                lbl_bank: "লিয়েন বা বন্ধক:",
+                timeline_title: "মালিকানার ধারাবাহিক ইতিহাস (CS → SA → RS → BS)",
+                qr_token_title: "DeedShield ভেরিফাইড টোকেন",
+                qr_desc: "মোবাইল ক্যামেরা দিয়ে স্ক্যান করে তাৎক্ষণিক ডিজিটাল সত্যতা নিশ্চিত করুন:",
+                auth_left_title: "ডিজিটাল ভূমি সত্যতা ও নাগরিক প্রি-পারচেজ ভেরিফিকেশন",
+                auth_left_desc: "বায়নানামার পূর্বে জমির আসল আইনি অবস্থা জানুন। খতিয়ান ধারাবাহিকতা, খাস জমি, আদালতের স্থগিতাদেশ এবং ব্যাংক বন্ধক স্বয়ংক্রিয়ভাবে অডিট করুন।",
+                feat_1: "খতিয়ান চেইন অ্যানালাইসিস (CS → SA → RS → BS)",
+                feat_2: "সরকারি খাস ও অধিগ্রহণ গেজেট অটো-স্ক্রিনার",
+                feat_3: "আদালতের ১৪৪ ধারা ও নিষেধাজ্ঞা মনিটরিং",
+                tab_login: "লগইন",
+                tab_register: "রেজিস্ট্রেশন",
+                quick_login_title: "বিচারক প্রদর্শনের জন্য ১-ক্লিক ডেমো প্রবেশ:",
+                demo_citizen: "Citizen Demo",
+                demo_officer: "Officer Demo",
+                form_name: "আপনার পূর্ণ নাম",
+                form_email: "ইমেইল ঠিকানা",
+                form_password: "পাসওয়ার্ড",
+                form_role: "ব্যবহারকারীর ধরন",
+                role_citizen: "নাগরিক / ক্রেতা (Citizen)",
+                role_officer: "ভূমি কর্মকর্তা (AC Land)",
+                btn_submit_login: "ড্যাশবোর্ডে প্রবেশ করুন",
+                kpi_records: "ডিজিটাইজড খতিয়ান",
+                kpi_mouza: "মৌজা ম্যাপ কভারেজ",
+                kpi_banks: "সংযুক্ত ব্যাংক লেজার",
+                kpi_accuracy: "জালিয়াতি শনাক্তকরণ",
+                mouza_map_sub: "নকশায় দাগের ওপর ক্লিক করে সরাসরি অডিট চালান:",
+                hint_map: "ডানপাশের ম্যাপ থেকেও সরাসরি দাগ সিলেক্ট করতে পারেন"
+            },
+            en: {
+                top_bar: "Smart Land Governance Prototype | LandTech 2026 Innovation Hackathon",
+                brand_subtitle: "Citizen Pre-Purchase Land Verification Platform",
+                btn_logout: "Logout",
+                search_box_title: "Enter Land Geolocation & Plot Details",
+                lbl_division: "Division",
+                lbl_district: "District",
+                lbl_upazila: "Upazila",
+                lbl_mouza: "Mouza",
+                lbl_dag: "Dag / Plot No*",
+                btn_run_audit: "Verify This Plot Title",
+                score_label: "Trust Score",
+                btn_print_cert: "Print / Save Audit Certificate",
+                score_breakdown_title: "Audit Score Breakdown (100-Point Metric Model)",
+                p1_short: "Mutation Continuity",
+                p2_short: "Govt Khas Free",
+                p3_short: "Litigation Free",
+                p4_short: "Mortgage Free",
+                pillar_1_title: "1. Title & Mutation Chain",
+                pillar_1_sub: "e-Mutation & Current BS Ledger Status",
+                pillar_2_title: "2. Govt Khas & Acquisition",
+                pillar_2_sub: "State Property & Vested Screener",
+                pillar_3_title: "3. Civil Litigation & Stay Order",
+                pillar_3_sub: "Court Lawsuit & Caveat Radar",
+                pillar_4_title: "4. Bank Mortgage & CIB Lien",
+                pillar_4_sub: "Commercial Collateral Encumbrance",
+                lbl_owner: "Current Declared Owner:",
+                lbl_khas: "Govt Classification:",
+                lbl_court: "Judicial Search:",
+                lbl_bank: "Mortgage Lien:",
+                timeline_title: "Historical Ownership Chain (CS → SA → RS → BS)",
+                qr_token_title: "DeedShield Verified Token",
+                qr_desc: "Scan with your phone camera to instantly verify cryptographic integrity:",
+                auth_left_title: "Digital Land Title Verification & Citizen Pre-Purchase Audit",
+                auth_left_desc: "Verify property legality before paying Bayna. Automated audit cross-referencing Khatians, government Khas, court injunctions, and mortgage liens.",
+                feat_1: "Multi-Survey Khatian Chain Audit (CS → SA → RS → BS)",
+                feat_2: "Government Khas & Acquisition Gazette Radar",
+                feat_3: "Active Civil Litigation & Section 144 Injunction Check",
+                tab_login: "Sign In",
+                tab_register: "Register",
+                quick_login_title: "1-Click Quick Demo Login for Judges:",
+                demo_citizen: "Citizen Demo",
+                demo_officer: "Officer Demo",
+                form_name: "Your Full Name",
+                form_email: "Email Address",
+                form_password: "Password",
+                form_role: "User Role",
+                role_citizen: "Citizen / Buyer",
+                role_officer: "Land Officer (AC Land)",
+                btn_submit_login: "Enter Dashboard",
+                kpi_records: "Digitized Khatians",
+                kpi_mouza: "Mouza Map Coverage",
+                kpi_banks: "Connected Banks",
+                kpi_accuracy: "Fraud Detection",
+                mouza_map_sub: "Click on any plot polygon to run instant audit:",
+                hint_map: "You can also click directly on the map"
+            }
+        };
+
+        // LOCATION-BASED MOUZA MAP SCHEMES
+        var MOUZA_MAPS = {
+            "Dhaka": {
+                heading: { bn: "মৌজা নকশা: সাভার (JL ৪২)", en: "Cadastral Map: Savar (JL 42)" },
+                sheet: "Sheet #04",
+                defaultDag: "101",
+                mouzaName: "Savar (JL 42)",
+                svg: '<svg viewBox="0 0 400 220" class="w-full h-full">' +
+                     '<polygon onclick="setDagFromMap(\'99\')" points="20,20 120,15 110,80 15,75" fill="#1e293b" stroke="#475569" stroke-width="1.5" class="mouza-plot" id="map-plot-99" />' +
+                     '<text x="45" y="50" fill="#94a3b8" font-size="12" font-weight="bold">দাগ ৯৯</text>' +
+                     '<polygon onclick="setDagFromMap(\'100\')" points="120,15 230,25 220,90 110,80" fill="#1e293b" stroke="#475569" stroke-width="1.5" class="mouza-plot" id="map-plot-100" />' +
+                     '<text x="150" y="55" fill="#94a3b8" font-size="12" font-weight="bold">দাগ ১০০</text>' +
+                     '<polygon onclick="setDagFromMap(\'101\')" points="230,25 380,20 370,95 220,90" fill="#065f46" stroke="#10b981" stroke-width="2" class="mouza-plot" id="map-plot-101" />' +
+                     '<text x="270" y="55" fill="#6ee7b7" font-size="13" font-weight="extrabold">দাগ ১০১ (Clean)</text>' +
+                     '<polygon onclick="setDagFromMap(\'102\')" points="15,75 110,80 100,160 25,170" fill="#881337" stroke="#f43f5e" stroke-width="2" class="mouza-plot" id="map-plot-102" />' +
+                     '<text x="35" y="125" fill="#fda4af" font-size="12" font-weight="bold">দাগ ১০২ (Khas)</text>' +
+                     '</svg>'
+            },
+            "Chattogram": {
+                heading: { bn: "মৌজা নকশা: পাঁচলাইশ (JL ১৮)", en: "Cadastral Map: Panchlaish (JL 18)" },
+                sheet: "Sheet #02",
+                defaultDag: "305",
+                mouzaName: "Panchlaish (JL 18)",
+                svg: '<svg viewBox="0 0 400 220" class="w-full h-full">' +
+                     '<polygon onclick="setDagFromMap(\'301\')" points="20,20 180,25 170,100 25,90" fill="#1e293b" stroke="#475569" stroke-width="1.5" class="mouza-plot" id="map-plot-301" />' +
+                     '<text x="65" y="60" fill="#94a3b8" font-size="12" font-weight="bold">দাগ ৩০১</text>' +
+                     '<polygon onclick="setDagFromMap(\'302\')" points="180,25 380,15 370,95 170,100" fill="#1e293b" stroke="#475569" stroke-width="1.5" class="mouza-plot" id="map-plot-302" />' +
+                     '<text x="245" y="60" fill="#94a3b8" font-size="12" font-weight="bold">দাগ ৩০২</text>' +
+                     '<polygon onclick="setDagFromMap(\'305\')" points="25,90 200,95 190,190 20,180" fill="#450a0a" stroke="#f43f5e" stroke-width="2" class="mouza-plot" id="map-plot-305" />' +
+                     '<text x="65" y="145" fill="#fca5a5" font-size="13" font-weight="extrabold">দাগ ৩০৫ (Stay Order)</text>' +
+                     '<polygon onclick="setDagFromMap(\'306\')" points="200,95 370,95 365,190 190,190" fill="#1e293b" stroke="#475569" stroke-width="1.5" class="mouza-plot" id="map-plot-306" />' +
+                     '<text x="250" y="145" fill="#94a3b8" font-size="12" font-weight="bold">দাগ ৩০৬</text>' +
+                     '</svg>'
+            },
+            "Sylhet": {
+                heading: { bn: "মৌজা নকশা: কোতোয়ালি (JL ০৯)", en: "Cadastral Map: Kotwali (JL 09)" },
+                sheet: "Sheet #01",
+                defaultDag: "410",
+                mouzaName: "Kotwali (JL 09)",
+                svg: '<svg viewBox="0 0 400 220" class="w-full h-full">' +
+                     '<polygon onclick="setDagFromMap(\'408\')" points="30,20 200,30 190,110 30,100" fill="#1e293b" stroke="#475569" stroke-width="1.5" class="mouza-plot" id="map-plot-408" />' +
+                     '<text x="75" y="65" fill="#94a3b8" font-size="12" font-weight="bold">দাগ ৪০৮</text>' +
+                     '<polygon onclick="setDagFromMap(\'409\')" points="200,30 370,20 360,105 190,110" fill="#1e293b" stroke="#475569" stroke-width="1.5" class="mouza-plot" id="map-plot-409" />' +
+                     '<text x="250" y="65" fill="#94a3b8" font-size="12" font-weight="bold">দাগ ৪০৯</text>' +
+                     '<polygon onclick="setDagFromMap(\'410\')" points="30,100 360,105 350,195 25,190" fill="#451a03" stroke="#f59e0b" stroke-width="2" class="mouza-plot" id="map-plot-410" />' +
+                     '<text x="140" y="155" fill="#fde68a" font-size="13" font-weight="extrabold">দাগ ৪১০ (Bank Mortgaged)</text>' +
+                     '</svg>'
+            },
+            "Rajshahi": {
+                heading: { bn: "মৌজা নকশা: পবা (JL ৩৩)", en: "Cadastral Map: Paba (JL 33)" },
+                sheet: "Sheet #03",
+                defaultDag: "208",
+                mouzaName: "Paba (JL 33)",
+                svg: '<svg viewBox="0 0 400 220" class="w-full h-full">' +
+                     '<polygon onclick="setDagFromMap(\'206\')" points="20,20 180,15 170,95 20,95" fill="#1e293b" stroke="#475569" stroke-width="1.5" class="mouza-plot" id="map-plot-206" />' +
+                     '<text x="70" y="60" fill="#94a3b8" font-size="12" font-weight="bold">দাগ ২০৬</text>' +
+                     '<polygon onclick="setDagFromMap(\'207\')" points="180,15 380,25 370,100 170,95" fill="#1e293b" stroke="#475569" stroke-width="1.5" class="mouza-plot" id="map-plot-207" />' +
+                     '<text x="250" y="60" fill="#94a3b8" font-size="12" font-weight="bold">দাগ ২০৭</text>' +
+                     '<polygon onclick="setDagFromMap(\'208\')" points="20,95 370,100 360,190 20,185" fill="#450a0a" stroke="#e11d48" stroke-width="2" class="mouza-plot" id="map-plot-208" />' +
+                     '<text x="130" y="150" fill="#fca5a5" font-size="13" font-weight="extrabold">দাগ ২০৮ (Double Selling)</text>' +
+                     '</svg>'
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('lang-bn').className = (lang === 'bn') 
+                ? 'text-xs px-2.5 py-0.5 rounded font-bold bg-emerald-600 text-white transition' 
+                : 'text-xs px-2.5 py-0.5 rounded font-semibold text-emerald-300 hover:text-white transition';
+            document.getElementById('lang-en').className = (lang === 'en') 
+                ? 'text-xs px-2.5 py-0.5 rounded font-bold bg-emerald-600 text-white transition' 
+                : 'text-xs px-2.5 py-0.5 rounded font-semibold text-emerald-300 hover:text-white transition';
+
+            document.querySelectorAll('[data-i18n]').forEach(function(el) {
+                var key = el.getAttribute('data-i18n');
+                if (I18N[lang][key]) {
+                    el.innerText = I18N[lang][key];
+                }
+            });
+
+            updateMouzaMap();
+            if (currentUser) {
+                var dag = document.getElementById('dag_no').value.trim();
+                if (dag) runVerification();
+            }
+        }
+
+        function updateMouzaMap() {
+            var div = document.getElementById('division').value;
+            var mapInfo = MOUZA_MAPS[div] || MOUZA_MAPS["Dhaka"];
+
+            document.getElementById('mouza-map-heading').innerText = mapInfo.heading[currentLang];
+            document.getElementById('mouza-sheet-badge').innerText = mapInfo.sheet;
+            document.getElementById('svg-map-wrapper').innerHTML = mapInfo.svg;
+            document.getElementById('mouza').value = mapInfo.mouzaName;
+        }
+
+        function setDagFromMap(dag) {
+            document.getElementById('dag_no').value = dag;
+            runVerification();
+        }
+
+        function setAuthTab(tab) {
+            currentAuthTab = tab;
+            var tabLogin = document.getElementById('tab-login');
+            var tabReg = document.getElementById('tab-register');
+            var fieldName = document.getElementById('auth-field-name');
+            var fieldRole = document.getElementById('auth-field-role');
+            var btnText = document.getElementById('btn-text');
+
+            if (tab === 'login') {
+                tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition bg-white text-slate-900 shadow-sm';
+                tabReg.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition text-slate-500 hover:text-slate-800';
+                fieldName.classList.add('hidden');
+                fieldRole.classList.add('hidden');
+                btnText.innerText = I18N[currentLang].btn_submit_login;
+            } else {
+                tabReg.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition bg-white text-slate-900 shadow-sm';
+                tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl transition text-slate-500 hover:text-slate-800';
+                fieldName.classList.remove('hidden');
+                fieldRole.classList.remove('hidden');
+                btnText.innerText = I18N[currentLang].tab_register;
+            }
+        }
+
+        function demoLogin(type) {
+            currentUser = (type === 'citizen') 
+                ? { name: 'Tanvir Ahmed', role: (currentLang === 'bn' ? 'যাচাইকৃত নাগরিক' : 'Verified Citizen') }
+                : { name: 'Kazi Mahbub (AC Land)', role: (currentLang === 'bn' ? 'ভূমি কর্মকর্তা' : 'Land Officer') };
+            enterDashboard();
+        }
+
+        function handleAuthSubmit() {
+            var email = document.getElementById('auth-input-email').value.trim();
+            if (!email) {
+                alert(currentLang === 'bn' ? 'দয়া করে ইমেইল দিন!' : 'Please enter your email!');
+                return;
+            }
+            currentUser = { 
+                name: email.split('@')[0], 
+                role: (currentLang === 'bn' ? 'নাগরিক ব্যবহারকারী' : 'Citizen User') 
+            };
+            enterDashboard();
+        }
+
+        function enterDashboard() {
+            document.getElementById('screen-auth').classList.add('hidden');
+            document.getElementById('screen-dashboard').classList.remove('hidden');
+            document.getElementById('user-display-name').innerText = currentUser.name;
+            document.getElementById('user-display-role').innerText = currentUser.role;
+            document.getElementById('user-avatar').innerText = currentUser.name.charAt(0).toUpperCase();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateMouzaMap();
+            runVerification();
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('screen-dashboard').classList.add('hidden');
+            document.getElementById('screen-auth').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        var GEO_DATA = {
+            "Dhaka": {
+                districts: ["Dhaka", "Gazipur", "Narayanganj"],
+                upazilas: { "Dhaka": ["Savar", "Dhamrai", "Keraniganj", "Mirpur"] }
+            },
+            "Chattogram": {
+                districts: ["Chattogram", "Cox's Bazar", "Cumilla"],
+                upazilas: { "Chattogram": ["Panchlaish", "Patiya", "Sitakunda"] }
+            },
+            "Sylhet": {
+                districts: ["Sylhet", "Moulvibazar", "Habiganj"],
+                upazilas: { "Sylhet": ["Sylhet Sadar", "Golapganj", "Beanibazar"] }
+            },
+            "Rajshahi": {
+                districts: ["Rajshahi", "Bogura", "Pabna"],
+                upazilas: { "Rajshahi": ["Paba", "Godagari", "Bagmara"] }
+            }
+        };
+
+        var SYNTHETIC_PLOTS = {
+            "101": {
+                division: "Dhaka", district: "Dhaka", upazila: "Savar", mouza: "Savar (JL 42)",
+                dag_no: "101", khatian_no: "512", declared_owner: "Mohammad Rafiqul Islam",
+                mutation_status: { bn: "সম্পূর্ণ ও নামজারি হালনাগাদ (BS-2024)", en: "Complete & Verified (BS-2024)" },
+                ownership_chain: [
+                    { year: "1962", survey: "CS", holder: "Abdul Hakim", status: "Clean" },
+                    { year: "1985", survey: "SA", holder: "Nurul Islam", status: "Clean" },
+                    { year: "2008", survey: "RS", holder: "Nurul Islam & Heirs", status: "Clean" },
+                    { year: "2020", survey: "BS", holder: "Mohammad Rafiqul Islam", status: "Verified" }
+                ],
+                khas_status: { bn: "ব্যক্তি মালিকানাধীন (খাসমুক্ত)", en: "Private Land (No Govt Claim)" },
+                court_disputes: { bn: "কোনো দেওয়ানি বা ফৌজদারি মামলা নেই", en: "No active litigation or stay orders" },
+                bank_mortgage: { bn: "সম্পূর্ণ দায়মুক্ত (কোনো ঋণ বন্ধক নেই)", en: "Unencumbered (No Commercial Lien)" },
+                trust_score: 98,
+                p1_pts: "২৫/২৫", p2_pts: "২৫/২৫", p3_pts: "২৪/২৫", p4_pts: "২৪/২৫",
+                summary: {
+                    bn: "সবগুলো রেকর্ড সম্পূর্ণ সঠিক। নামজারি হালনাগাদ, কোনো সরকারি বা ব্যাংক দায়বদ্ধতা নেই এবং কোনো মামলা নেই।",
+                    en: "Unbroken mutation continuity, no encumbrance, zero court stay orders, and valid ownership chain."
+                }
+            },
+            "102": {
+                division: "Dhaka", district: "Dhaka", upazila: "Savar", mouza: "Savar (JL 42)",
+                dag_no: "102", khatian_no: "513", declared_owner: "Al-Amin Hossain (Suspicious)",
+                mutation_status: { bn: "বাতিলকৃত / জাল খতিয়ান রেকর্ড", en: "Rejected / Suspicious Legacy Gap" },
+                ownership_chain: [
+                    { year: "1962", survey: "CS", holder: "Govt Khash 1 No Ledger", status: "State Land" },
+                    { year: "2015", survey: "RS", holder: "Illegal Transfer Claim", status: "Disputed" }
+                ],
+                khas_status: { bn: "উচ্চ ঝুঁকি: সরকারের ১নং খাস খতিয়ানভুক্ত ও সড়ক অধিগ্রহণ", en: "CRITICAL: Recorded as Govt Khas & Road Acquisition" },
+                court_disputes: { bn: "সড়ক বিভাগ কর্তৃক সরকারি অধিগ্রহণ বিজ্ঞপ্তি জারি", en: "Acquisition Gazette #2018/89 Published" },
+                bank_mortgage: { bn: "প্রযোজ্য নয়", en: "N/A" },
+                trust_score: 15,
+                p1_pts: "০/২৫", p2_pts: "০/২৫", p3_pts: "১০/২৫", p4_pts: "৫/২৫",
+                summary: {
+                    bn: "বিপদজনক জালিয়াতি! জমিটি সরকারের ১নং খাস খতিয়ানভুক্ত এবং সড়ক সম্প্রসারণের জন্য অধিগ্রহণকৃত। হস্তান্তর দণ্ডনীয় অপরাধ।",
+                    en: "FRAUD WARNING: Property is officially government Khas and gazetted for highway acquisition. Transfer is illegal."
+                }
+            },
+            "305": {
+                division: "Chattogram", district: "Chattogram", upazila: "Panchlaish", mouza: "Panchlaish (JL 18)",
+                dag_no: "305", khatian_no: "782", declared_owner: "Didarul Alam & Brothers",
+                mutation_status: { bn: "আদালতের নিষেধাজ্ঞায় নামজারি স্থগিত", en: "Mutation Held Due to Court Injunction" },
+                ownership_chain: [
+                    { year: "1970", survey: "CS", holder: "Fazlul Karim", status: "Clean" },
+                    { year: "2002", survey: "RS", holder: "Brothers Partition Suit", status: "Litigation" }
+                ],
+                khas_status: { bn: "ব্যক্তি মালিকানাধীন", en: "Private Land" },
+                court_disputes: { bn: "বিজ্ঞ আদালতে নিষেধাজ্ঞা চলমান (১৪৪ ধারা জারি)", en: "ACTIVE INJUNCTION: Title Suit #84/2023 at Joint District Judge Court" },
+                bank_mortgage: { bn: "দায়মুক্ত", en: "Unencumbered" },
+                trust_score: 32,
+                p1_pts: "১০/২৫", p2_pts: "২০/২৫", p3_pts: "০/২৫", p4_pts: "২/২৫",
+                summary: {
+                    bn: "স্থগিতাদেশ সক্রিয়! জমিতে অংশীদারদের বণ্টন মামলা ও আদালতের স্থায়ী নিষেধাজ্ঞা রয়েছে।",
+                    en: "CAUTION: Temporary injunction issued by civil court. Transfer is strictly restrained."
+                }
+            },
+            "410": {
+                division: "Sylhet", district: "Sylhet", upazila: "Sylhet Sadar", mouza: "Kotwali (JL 09)",
+                dag_no: "410", khatian_no: "329", declared_owner: "Syed Kamrul Hasan",
+                mutation_status: { bn: "হালনাগাদ নামজারি (BS-2021)", en: "Verified (BS-2021)" },
+                ownership_chain: [
+                    { year: "1982", survey: "SA", holder: "Syed Golam Ali", status: "Clean" },
+                    { year: "2012", survey: "BS", holder: "Syed Kamrul Hasan", status: "Clean" }
+                ],
+                khas_status: { bn: "ব্যক্তি মালিকানাধীন", en: "Private Land" },
+                court_disputes: { bn: "কোনো মামলা নেই", en: "No court disputes recorded" },
+                bank_mortgage: { bn: "অগ্রণী ব্যাংকে বন্ধক রাখা (ঋণ হিসাব #৭৮২১, ৬৫ লাখ টাকা)", en: "ENCUMBERED: Mortgaged to Agrani Bank Ltd (Loan #7821, BDT 65L)" },
+                trust_score: 58,
+                p1_pts: "২৫/২৫", p2_pts: "২৫/২৫", p3_pts: "৮/২৫", p4_pts: "০/২৫",
+                summary: {
+                    bn: "ব্যাংক দায়বদ্ধতা! মূল দলিল অগ্রণী ব্যাংকে বন্ধক রেখে ঋণ নেওয়া আছে। ব্যাংকের NOC প্রয়োজন।",
+                    en: "MORTGAGED ASSET: Deed is deposited as collateral. Bank NOC mandatory prior to sale."
+                }
+            },
+            "208": {
+                division: "Rajshahi", district: "Rajshahi", upazila: "Paba", mouza: "Paba (JL 33)",
+                dag_no: "208", khatian_no: "614", declared_owner: "Md. Enamul Huq",
+                mutation_status: { bn: "দ্বৈত বিক্রি শনাক্ত: একই দিনে দুই দলিলের রেকর্ড", en: "Double Registry Alert: Duplicate Deed Detected" },
+                ownership_chain: [
+                    { year: "1980", survey: "RS", holder: "Ansar Ali", status: "Clean" },
+                    { year: "2023", survey: "Deed", holder: "Sold to Two Separate Parties", status: "Fraud" }
+                ],
+                khas_status: { bn: "ব্যক্তি মালিকানাধীন", en: "Private Land" },
+                court_disputes: { bn: "পবা থানায় প্রতারণার মামলা বিচারাধীন", en: "Criminal Case Pending at Police Station" },
+                bank_mortgage: { bn: "দায়মুক্ত", en: "No mortgage logged" },
+                trust_score: 25,
+                p1_pts: "০/২৫", p2_pts: "২০/২৫", p3_pts: "০/২৫", p4_pts: "৫/২৫",
+                summary: {
+                    bn: "দ্বৈত বিক্রি শনাক্ত! একই দাগের জমি ৪৮ ঘণ্টার ব্যবধানে দুইজন ভিন্ন ক্রেতার কাছে বিক্রি করা হয়েছে।",
+                    en: "DOUBLE SELLING ALERT: Same plot sold to multiple buyers within 48 hours."
+                }
+            }
+        };
+
+        function onDivisionChange() {
+            var div = document.getElementById('division').value;
+            var distSelect = document.getElementById('district');
+            var upazilaSelect = document.getElementById('upazila');
+
+            distSelect.innerHTML = '';
+            GEO_DATA[div].districts.forEach(function(d) {
+                var opt = document.createElement('option');
+                opt.value = d; 
+                opt.innerText = d;
+                distSelect.appendChild(opt);
+            });
+
+            upazilaSelect.innerHTML = '';
+            var upList = (GEO_DATA[div].upazilas && GEO_DATA[div].upazilas[div]) || ["Sadar Upazila", "Model Upazila"];
+            upList.forEach(function(u) {
+                var opt = document.createElement('option');
+                opt.value = u; 
+                opt.innerText = u;
+                upazilaSelect.appendChild(opt);
+            });
+
+            // Update Mouza Map according to newly selected division
+            updateMouzaMap();
+            
+            // Set default dag according to map
+            var mapInfo = MOUZA_MAPS[div] || MOUZA_MAPS["Dhaka"];
+            document.getElementById('dag_no').value = mapInfo.defaultDag;
+            runVerification();
+        }
+
+        function runVerification() {
+            var dag = document.getElementById('dag_no').value.trim();
+            var div = document.getElementById('division').value;
+            var mouza = document.getElementById('mouza').value.trim();
+
+            if (!dag) {
+                alert(currentLang === 'bn' ? 'দয়া করে দাগ নম্বর লিখুন!' : 'Please enter a Dag number!');
+                return;
+            }
+
+            var data = SYNTHETIC_PLOTS[dag] || {
+                division: div, district: "General", upazila: "General", mouza: mouza,
+                dag_no: dag, khatian_no: "882", declared_owner: "Synthetic Landholder (General)",
+                mutation_status: { bn: "নিয়মিত নিবন্ধিত রেকর্ড ও নামজারি", en: "Standard Registered Record" },
+                ownership_chain: [
+                    { year: "1980", survey: "RS", holder: "Legacy Owner", status: "Clean" },
+                    { year: "2021", survey: "BS", holder: "Current Holder", status: "Clean" }
+                ],
+                khas_status: { bn: "ব্যক্তি মালিকানাধীন", en: "Private Land" },
+                court_disputes: { bn: "কোনো মামলা পাওয়া যায়নি", en: "No active litigation found" },
+                bank_mortgage: { bn: "দায়মুক্ত", en: "No commercial mortgage" },
+                trust_score: 84,
+                p1_pts: "২২/২৫", p2_pts: "২৫/২৫", p3_pts: "২০/২৫", p4_pts: "১৭/২৫",
+                summary: {
+                    bn: "সাধারণ রেকর্ড পাওয়া গেছে। কোনো বড় ধরনের অসঙ্গতি বা আদালতের স্থগিতাদেশ নেই।",
+                    en: "Regular property record found. Unencumbered and matches recent land revenue ledgers."
+                }
+            };
+
+            renderResults(data);
+        }
+
+        function renderResults(data) {
+            document.getElementById('results-area').classList.remove('hidden');
+            document.getElementById('trust-score-num').innerText = data.trust_score;
+            document.getElementById('total-score-badge').innerText = data.trust_score + " / 100";
+
+            var circle = document.getElementById('score-circle');
+            var card = document.getElementById('score-card');
+            var badge = document.getElementById('risk-badge');
+            var offset = 289 - (289 * (data.trust_score / 100));
+            circle.style.strokeDashoffset = offset;
+
+            if (data.trust_score >= 80) {
+                circle.setAttribute('stroke', '#10b981');
+                card.className = 'rounded-3xl p-6 sm:p-8 mb-8 border bg-emerald-50/70 border-emerald-200';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300';
+                badge.innerText = (currentLang === 'bn') ? 'ঝুঁকিমুক্ত জমি (LOW RISK)' : 'CLEAR TITLE / LOW RISK';
+                document.getElementById('result-title').innerText = (currentLang === 'bn') ? 'বৈধ ও নির্ভেজাল জমি যাচাইকৃত' : 'Valid & Clear Title Verified';
+            } else if (data.trust_score >= 50) {
+                circle.setAttribute('stroke', '#f59e0b');
+                card.className = 'rounded-3xl p-6 sm:p-8 mb-8 border bg-amber-50/70 border-amber-200';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-800 border border-amber-300';
+                badge.innerText = (currentLang === 'bn') ? 'সতর্কতা প্রয়োজন (CAUTION)' : 'CAUTION REQUIRED';
+                document.getElementById('result-title').innerText = (currentLang === 'bn') ? 'জমিটিতে দায়বদ্ধতার শর্ত রয়েছে' : 'Encumbrance / Procedural Flags Found';
+            } else {
+                circle.setAttribute('stroke', '#f43f5e');
+                card.className = 'rounded-3xl p-6 sm:p-8 mb-8 border bg-rose-50/70 border-rose-200';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-extrabold bg-rose-100 text-rose-800 border border-rose-300';
+                badge.innerText = (currentLang === 'bn') ? 'উচ্চ ঝুঁকি ও জালিয়াতি (CRITICAL)' : 'CRITICAL FRAUD RISK';
+                document.getElementById('result-title').innerText = (currentLang === 'bn') ? 'আইনগত হস্তান্তরে নিষেধাজ্ঞা রয়েছে' : 'Dispute / Prohibited Property Alert';
+            }
+
+            document.getElementById('res-location').innerText = data.division + ' > ' + data.upazila;
+            document.getElementById('res-dag').innerText = data.dag_no;
+            document.getElementById('res-khatian').innerText = data.khatian_no;
+            document.getElementById('result-summary').innerText = data.summary[currentLang];
+
+            document.getElementById('pts-p1').innerText = data.p1_pts;
+            document.getElementById('pts-p2').innerText = data.p2_pts;
+            document.getElementById('pts-p3').innerText = data.p3_pts;
+            document.getElementById('pts-p4').innerText = data.p4_pts;
+
+            document.getElementById('res-owner').innerText = data.declared_owner;
+            document.getElementById('p1-desc').innerText = data.mutation_status[currentLang];
+            document.getElementById('p1-status').innerText = data.trust_score >= 80 ? (currentLang === 'bn' ? 'যাচাইকৃত' : 'Verified') : (currentLang === 'bn' ? 'অসম্পূর্ণ' : 'Flagged');
+            document.getElementById('p1-status').className = data.trust_score >= 80 ? 'text-xs font-bold px-2.5 py-1 rounded-xl bg-emerald-100 text-emerald-800' : 'text-xs font-bold px-2.5 py-1 rounded-xl bg-rose-100 text-rose-800';
+
+            document.getElementById('p2-desc').innerText = data.khas_status[currentLang];
+            document.getElementById('res-khas').innerText = data.khas_status[currentLang];
+            document.getElementById('p2-status').innerText = data.khas_status.en.indexOf('Khas') !== -1 ? (currentLang === 'bn' ? 'খাস জমি' : 'Govt Land') : (currentLang === 'bn' ? 'পরিষ্কার' : 'Clean');
+            document.getElementById('p2-status').className = data.khas_status.en.indexOf('Khas') !== -1 ? 'text-xs font-bold px-2.5 py-1 rounded-xl bg-rose-100 text-rose-800' : 'text-xs font-bold px-2.5 py-1 rounded-xl bg-emerald-100 text-emerald-800';
+
+            document.getElementById('p3-desc').innerText = data.court_disputes[currentLang];
+            document.getElementById('res-court').innerText = (data.court_disputes.en.indexOf('INJUNCTION') !== -1 || data.court_disputes.en.indexOf('Acquisition') !== -1) ? (currentLang === 'bn' ? 'মামলা চলমান' : 'Injunction Active') : (currentLang === 'bn' ? 'মামলামুক্ত' : 'Clean Title');
+            document.getElementById('p3-status').innerText = data.court_disputes.en.indexOf('No') !== -1 ? (currentLang === 'bn' ? 'মামলামুক্ত' : 'No Stay Order') : (currentLang === 'bn' ? 'নিষেধাজ্ঞা' : 'Injunction Alert');
+            document.getElementById('p3-status').className = data.court_disputes.en.indexOf('No') !== -1 ? 'text-xs font-bold px-2.5 py-1 rounded-xl bg-emerald-100 text-emerald-800' : 'text-xs font-bold px-2.5 py-1 rounded-xl bg-rose-100 text-rose-800';
+
+            document.getElementById('p4-desc').innerText = data.bank_mortgage[currentLang];
+            document.getElementById('res-bank').innerText = data.bank_mortgage.en.indexOf('ENCUMBERED') !== -1 ? (currentLang === 'bn' ? 'ব্যাংকে বন্ধকী' : 'Bank Mortgaged') : (currentLang === 'bn' ? 'দায়মুক্ত' : 'Free of Lien');
+            document.getElementById('p4-status').innerText = data.bank_mortgage.en.indexOf('ENCUMBERED') !== -1 ? (currentLang === 'bn' ? 'বন্ধক' : 'Mortgaged') : (currentLang === 'bn' ? 'দায়মুক্ত' : 'Unencumbered');
+            document.getElementById('p4-status').className = data.bank_mortgage.en.indexOf('ENCUMBERED') !== -1 ? 'text-xs font-bold px-2.5 py-1 rounded-xl bg-amber-100 text-amber-800' : 'text-xs font-bold px-2.5 py-1 rounded-xl bg-emerald-100 text-emerald-800';
+
+            var timeline = document.getElementById('timeline-container');
+            timeline.innerHTML = '';
+            (data.ownership_chain || []).forEach(function(item) {
+                var el = document.createElement('div');
+                el.className = 'relative';
+                el.innerHTML = '<div class="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-emerald-600 ring-4 ring-white"></div>' +
+                    '<div class="text-xs font-mono font-bold text-emerald-700">' + item.year + ' - [' + item.survey + ' Survey]</div>' +
+                    '<div class="text-sm font-semibold text-slate-800">' + item.holder + '</div>' +
+                    '<div class="text-xs text-slate-500 font-medium">' + (currentLang === 'bn' ? 'অবস্থা:' : 'Status:') + ' <span class="text-slate-700">' + item.status + '</span></div>';
+                timeline.appendChild(el);
+            });
+
+            var qrData = 'DEEDSHIELD|PLOT:' + data.dag_no + '|SCORE:' + data.trust_score + '|STATUS:' + (data.trust_score >= 80 ? 'SAFE' : 'RISK');
+            var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(qrData);
+            document.getElementById('qr-img').src = qrUrl;
+
+            var fakeHash = "DS-" + Math.abs((data.dag_no * 849204) % 999999).toString(16).toUpperCase();
+            document.getElementById('cert-hash').innerText = fakeHash;
+            document.getElementById('cert-date').innerText = new Date().toLocaleDateString('en-GB') + ' (Verified)';
+
+            document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            onDivisionChange();
+        });
+    </script>
+</body>
+</html>
